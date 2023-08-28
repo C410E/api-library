@@ -3,8 +3,10 @@ const  { books }  = require("../data/books");
 const queryId = (req, res) => {
     const { id } = req.params 
 
+    try {
+        
     const book = books.find((book) =>  {
-        return book.id === Number(id)
+        return book.id === Number(id);
     })
 
     if (!book) {
@@ -12,6 +14,9 @@ const queryId = (req, res) => {
     }
 
     return res.status(200).json(book)
+    } catch (error) {
+        return res.status(500).json({error: "problem finding book by query"});
+    }
 }
 
 module.exports = {

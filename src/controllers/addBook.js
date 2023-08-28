@@ -8,6 +8,7 @@ const addBooks = (req, res) => {
         numberOfPages
     } = req.body
 
+   try {
     if (!title) {
         return res.status(400).json({message: "the title is required"});
     }
@@ -18,7 +19,7 @@ const addBooks = (req, res) => {
         return res.status(400).json({message: "the year is required"});
     }
     if (!numberOfPages) {
-        return res.status(400).json({message: "the number of pages is requires"});
+        return res.status(400).json({message: "the number of pages is required"});
     }
 
     const book = {
@@ -29,9 +30,12 @@ const addBooks = (req, res) => {
         numberOfPages
     }
 
-    books.push(book)
+    books.push(book);
 
-    res.status(200).json(book)
+    res.status(200).json(book);
+   } catch (error) {
+    return res.status(500).json({error: "Error adding book"});
+   }
 }
 
 module.exports = {
